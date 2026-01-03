@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from typing import TypedDict, Annotated, Optional
+from typing import TypedDict, Annotated, Optional, Literal
 
 load_dotenv()
 
@@ -10,7 +10,7 @@ model = ChatOpenAI()
 class Review(TypedDict):
     key_themes : Annotated[list[str], "Write down all the key themes discussed in the review in a list"]
     summary: Annotated[str, "A concise summary of the review"]
-    sentiment : Annotated[str, "Return sentiment as Positive, Negative, or Neutral"]
+    sentiment : Annotated[Literal['pos', 'neg', 'neu'], "Return sentiment as Positive, Negative, or Neutral"]
     pros: Annotated[Optional[list[str]], "List the pros mentioned in the review, if any"]
     cons: Annotated[Optional[list[str]], "List the cons mentioned in the review, if any"]
     
@@ -34,6 +34,7 @@ Bloatware still exists in One UI
 Expensive compared to competitors
 """)
 
-print(result['summary'])
 print(result['sentiment'])
 
+
+# There is a problem that there is no guarantee that the model's output will strictly adhere to the TypedDict structure.
