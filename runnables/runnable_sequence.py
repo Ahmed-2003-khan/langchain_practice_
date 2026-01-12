@@ -1,10 +1,25 @@
-from langchain_openai import ChatOpenAI # Wrapper for interacting with OpenAI's Chat models
-from langchain_core.prompts import PromptTemplate # Template for creating structured and dynamic prompts
-from langchain_core.output_parsers import StrOutputParser # Component to convert LLM output messages into raw strings
-from langchain.schema.runnable import RunnableSequence # The core LCEL orchestrator that chains components into a executable sequence
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain.schema.runnable import RunnableSequence
 from dotenv import load_dotenv
 
-# Initialize environment variables to manage sensitive API keys and configurations
 load_dotenv()
+
+# PromptTemplate defines the structure of the input with placeholders for dynamic values
+# The template string uses {topic} as a variable that will be replaced at runtime
+prompt = PromptTemplate(
+    template="Write a joke about {topic}",
+    input_variables=["topic"]
+)
+
+# ChatOpenAI creates an instance of the language model that will process the prompt
+# This connects to OpenAI's API using credentials from environment variables
+model = ChatOpenAI()
+
+# StrOutputParser extracts the text content from the model's response object
+# It transforms the AIMessage into a simple string for easier consumption
+parser = StrOutputParser()
+
 
 
