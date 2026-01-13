@@ -9,3 +9,12 @@ loader = DirectoryLoader(
 docs = loader.load()
 
 print(len(docs))
+
+for doc in docs:
+    print(doc.page_content)
+
+docs = loader.lazy_load()
+
+for doc in docs:
+    print(doc.page_content)
+
