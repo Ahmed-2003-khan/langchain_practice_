@@ -27,9 +27,6 @@ parser = StrOutputParser()
 # First chain generates the initial report
 report_gen_chain = RunnableSequence(prompt1, model, parser)
 
-# RunnableBranch enables conditional logic in LCEL chains
-# It takes tuples of (condition, runnable) and a default runnable
-# If word count > 80, summarize the report; otherwise, pass it through unchanged
 branch_chain = RunnableBranch(
     (lambda x: len(x.split()) > 80, RunnableSequence(prompt2, model, parser)),
     RunnablePassthrough()
@@ -38,5 +35,5 @@ branch_chain = RunnableBranch(
 # Complete pipeline: generate report → conditionally summarize if too long
 final_chain = RunnableSequence(report_gen_chain, branch_chain)
 
-# Execute the chain with a topic
+# Execute the chain with a topic - output will be summarized only if it exceeds 80 words
 print(final_chain.invoke({'topic': 'AI'}))
