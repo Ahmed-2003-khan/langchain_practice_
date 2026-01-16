@@ -11,16 +11,12 @@ The roots of AI can be traced back to the mid-20th century, with pioneers like A
 
 """
 
-# RecursiveCharacterTextSplitter is the recommended splitter for generic text.
-# It tries to split on a list of characters (like \n\n, \n, " ") in order until chunks are small enough.
-# This helps keep related pieces of text (like paragraphs or sentences) together.
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=100, # Targeted maximum size of each chunk
-    chunk_overlap=0, # No overlap between chunks in this example
+    chunk_size=100,
+    chunk_overlap=0,
     
 )
 
-# split_text takes a string and returns a list of smaller strings based on the splitting logic
 chunks = splitter.split_text(text)
 
 print(len(chunks))
